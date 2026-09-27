@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#2b7a4b" />
+<title>Lista de la compra</title>
+<style>
+:root{--bg:#f5f5f5;--card:#fff;--text:#1e1e1e;--muted:#777;--accent:#2b7a4b;--accent-2:#256a41;--danger:#c0392b;--border:#e3e3e3;--pending-bg:#fff8e1;--pending-border:#f2c94c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.4}
+.topbar{position:sticky;top:0;z-index:10;background:var(--accent);color:#fff;padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top,0px));box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.topbar h1{margin:0 0 8px;font-size:18px;font-weight:600}
+.search-wrap input{width:100%;padding:10px 12px;border-radius:10px;border:none;font-size:16px;outline:none;background:rgba(255,255,255,.95)}
+main{padding:12px;max-width:700px;margin:0 auto;padding-bottom:60px}
+section{background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+section h2{margin:0 0 10px;font-size:15px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.pending{background:var(--pending-bg);border:1px solid var(--pending-border)}
+.pending .pending-title{color:#8a6d00;justify-content:space-between}
+.badge{background:var(--accent);color:#fff;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700}
+.clear-btn{background:transparent;border:1px solid #d4a800;color:#8a6d00;border-radius:8px;padding:4px 10px;font-size:12px;cursor:pointer}
+.list{list-style:none;margin:0;padding:0}
+.item{display:flex;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.item:last-child{border-bottom:none}
+.item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid #bbb;border-radius:6px;flex:0 0 auto;position:relative;cursor:pointer;transition:all .15s;background:#fff}
+.item input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
+.item input[type=checkbox]:checked::after{content:"";position:absolute;left:7px;top:2px;width:6px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.item .name{flex:1;font-size:16px}
+.item.checked .name{color:var(--muted)}
+.item .delete-btn{background:transparent;border:none;color:var(--danger);font-size:20px;padding:4px 8px;cursor:pointer;line-height:1;opacity:.55}
+.item .delete-btn:hover{opacity:1}
+.add-box form{display:grid;grid-template-columns:1fr 1fr auto;gap:8px}
+.add-box input,.add-box select{padding:10px;border-radius:8px;border:1px solid var(--border);font-size:15px;background:#fff;min-width:0}
+.add-box button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 14px;font-size:15px;font-weight:600;cursor:pointer}
+.add-box button:active{background:var(--accent-2)}
+@media(max-width:480px){.add-box form{grid-template-columns:1fr 1fr}.add-box button{grid-column:span 2}}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);background:rgba(0,0,0,.85);color:#fff;padding:10px 18px;border-radius:24px;font-size:14px;opacity:0;transition:all .25s;pointer-events:none;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none!important}
+.empty-msg{color:var(--muted);font-size:14px;padding:6px 2px}
+</style>
+</head>
+<body>
+<header class="topbar">
+<h1>🛒 Lista de la compra</h1>
+<div class="search-wrap">
+<input id="search" type="search" placeholder="Buscar artículo..." autocomplete="off" />
+</div>
+</header>
+<main>
+<section id="pending-section" class="pending hidden">
+<h2 class="pending-title">
+Para comprar <span id="pending-count" class="badge">0</span>
+<button id="clear-pending" class="clear-btn" title="Desmarcar todo">Limpiar</button>
+</h2>
+<ul id="pending-list" class="list"></ul>
+</section>
+<section class="add-box">
+<h2>Añadir artículo nuevo</h2>
+<form id="add-form" autocomplete="off">
+<input id="new-name" type="text" placeholder="Nombre del artículo" required />
+<select id="new-category" required></select>
+<button type="submit">Añadir</button>
+</form>
+</section>
+<section id="catalog"></section>
+</main>
+<div id="toast" class="toast"></div>
+<script>
+const CATALOGO_INICIAL={"Carne y pescado":["Filete ternera","Ternera","Solomillo pavo","Pechuga pollo","Carne guisar","Costilla","Pollo (alitas)","Muslos pollo o pavo","Chorizo cocinar","Bacon","Jamón serrano","Tacos jamón","Cinta de lomo","Paté","Hamburguesa pollo o pavo","Fuet","Caballa","Salmón","Merluza","Pescado","Bacalao","Gulas"],"Lácteos":["Leche","Leche sin lactosa","Queso","Queso untar","Queso sándwich","Yogur","Petit suisse","Nata","Nata cocinar","Colacao"],"Fruta y verdura":["Zanahorias","Kiwis","Manzanas","Plátanos","Peras","Piña","Limones","Fresas","Uvas","Pepino","Champiñones","Judías verdes","Espinacas congeladas","Guisantes","Judías pintas"],"Despensa":["Pasta","Pasta fresca","Arroz","Arroz congelado","Arroz precocinado","Café","Pipas","Garbanzos","Harina","Azúcar","Aceitera","Vinagre espeso","Salsa soja","Mayonesa","Tomate frito","Mermelada","Ketchup","Laurel","Perejil","Pastilla avecrem","Menestra","Puré patata","Masa pizza o hojaldre","Galletas","Pan tostado","Empanada","Fajitas","Macarrones","Espaguetis","Palitos cangrejo","Gazpacho"],"Bebidas":["Agua","Vino","Cervezas sin alcohol"]};
+const CATEGORIAS=Object.keys(CATALOGO_INICIAL);
+const ORDEN_CATEGORIAS=new Map(CATEGORIAS.map((c,i)=>[c,i]));
+const STORAGE_KEY="lista_compra_v1";
+let items=[];let filterText="";
+const $=(s)=>document.querySelector(s);
+function slugId(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function loadItems(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return JSON.parse(r)}catch(e){console.warn(e)}return null}
+function saveItems(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}catch(e){console.warn(e)}}
+function seedIfEmpty(){const l=loadItems();if(l)return l;const s=[];let o=0;for(const[cat,nombres]of Object.entries(CATALOGO_INICIAL)){for(const n of nombres){s.push({id:slugId(n),nombre:n,categoria:cat,marcado:false,orden:o++})}}return s}
+function render(){renderPending();renderCatalog();renderCategoryOptions()}
+function renderPending(){const sec=$("#pending-section");const list=$("#pending-list");const count=$("#pending-count");const p=items.filter(i=>i.marcado);if(p.length===0){sec.classList.add("hidden");return}sec.classList.remove("hidden");count.textContent=p.length;list.innerHTML="";p.sort((a,b)=>a.nombre.localeCompare(b.nombre,"es")).forEach(it=>list.appendChild(renderItem(it,false)))}
+function renderCatalog(){const cont=$("#catalog");cont.innerHTML="";const q=filterText.trim().toLowerCase();const groups=new Map();for(const it of items){if(q&&!it.nombre.toLowerCase().includes(q))continue;if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>{const ia=ORDEN_CATEGORIAS.has(a)?ORDEN_CATEGORIAS.get(a):999;const ib=ORDEN_CATEGORIAS.has(b)?ORDEN_CATEGORIAS.get(b):999;return ia-ib||a.localeCompare(b,"es")});if(cats.length===0){const e=document.createElement("p");e.className="empty-msg";e.textContent=q?"Sin resultados.":"No hay artículos.";cont.appendChild(e);return}for(const cat of cats){const sec=document.createElement("section");const h2=document.createElement("h2");h2.textContent=cat;sec.appendChild(h2);const ul=document.createElement("ul");ul.className="list";groups.get(cat).sort((a,b)=>(a.orden??0)-(b.orden??0)||a.nombre.localeCompare(b.nombre,"es")).forEach(it=>ul.appendChild(renderItem(it,true)));sec.appendChild(ul);cont.appendChild(sec)}}
+function renderItem(item,showDelete){const li=document.createElement("li");li.className="item"+(item.marcado?" checked":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!item.marcado;cb.addEventListener("change",()=>toggleItem(item.id,cb.checked));const name=document.createElement("span");name.className="name";name.textContent=item.nombre;name.addEventListener("click",(e)=>{e.preventDefault();cb.checked=!cb.checked;toggleItem(item.id,cb.checked)});li.appendChild(cb);li.appendChild(name);if(showDelete){const del=document.createElement("button");del.className="delete-btn";del.title="Eliminar del catálogo";del.textContent="×";del.addEventListener("click",(e)=>{e.stopPropagation();deleteItemFromCatalog(item.id)});li.appendChild(del)}return li}
+function renderCategoryOptions(){const sel=$("#new-category");if(sel.options.length)return;for(const cat of CATEGORIAS){const o=document.createElement("option");o.value=cat;o.textContent=cat;sel.appendChild(o)}const otra=document.createElement("option");otra.value="__nueva__";otra.textContent="+ Nueva categoría...";sel.appendChild(otra)}
+function toggleItem(id,marcado){const it=items.find(x=>x.id===id);if(!it)return;it.marcado=marcado;saveItems();render()}
+function deleteItemFromCatalog(id){const it=items.find(x=>x.id===id);if(!it)return;if(!confirm('¿Eliminar "'+it.nombre+'" del catálogo?'))return;items=items.filter(x=>x.id!==id);saveItems();render();toast("Eliminado")}
+function addNewItem(nombre,categoria){const id=slugId(nombre)+"-"+Math.random().toString(36).slice(2,6);const orden=10000+Date.now()%100000;items.push({id,nombre:nombre.trim(),categoria:categoria.trim(),marcado:true,orden});saveItems();render()}
+function clearPending(){const p=items.filter(i=>i.marcado);if(!p.length)return;if(!confirm("¿Desmarcar "+p.length+" artículo(s)?"))return;items.forEach(i=>i.marcado=false);saveItems();render();toast("Lista vaciada")}
+function setupUI(){$("#search").addEventListener("input",(e)=>{filterText=e.target.value;renderCatalog()});$("#add-form").addEventListener("submit",(e)=>{e.preventDefault();const nombreEl=$("#new-name");const catEl=$("#new-category");const nombre=nombreEl.value.trim();let categoria=catEl.value;if(!nombre)return;if(categoria==="__nueva__"){const n=prompt("Nombre de la nueva categoría:");if(!n||!n.trim())return;categoria=n.trim()}addNewItem(nombre,categoria);nombreEl.value="";nombreEl.focus();toast("Añadido")});$("#clear-pending").addEventListener("click",clearPending)}
+let toastTimer;function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),1800)}
+(function init(){setupUI();items=seedIfEmpty();saveItems();render()})();
+</script>
+</body>
+</html>
