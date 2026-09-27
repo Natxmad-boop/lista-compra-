@@ -12,16 +12,24 @@
 @media (prefers-color-scheme: dark){:root{--bg:#0f172a;--card:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--accent:#22c55e;--accent-2:#16a34a;--accent-soft:#14532d;--pending-bg:#422006;--pending-border:#854d0e;--pending-text:#fbbf24;--border:#334155}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.4;transition:background .2s,color .2s}
-.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;padding:14px 16px calc(14px + env(safe-area-inset-top,0px));padding-top:calc(14px + env(safe-area-inset-top,0px));box-shadow:0 2px 12px rgba(0,0,0,.15)}
-.topbar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;backdrop-filter:blur(4px)}
-.logo-text h1{margin:0;font-size:18px;font-weight:700;letter-spacing:-.3px}
-.logo-text p{margin:0;font-size:12px;opacity:.85}
-.counter-pill{background:rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;backdrop-filter:blur(4px);white-space:nowrap}
-.search-wrap{position:relative}
+.topbar{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;padding:14px 16px 0;padding-top:calc(14px + env(safe-area-inset-top,0px));box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.topbar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;min-width:0}
+.logo-icon{width:38px;height:38px;background:rgba(255,255,255,.18);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;backdrop-filter:blur(4px);flex:0 0 auto}
+.logo-text{min-width:0}
+.logo-text h1{margin:0;font-size:17px;font-weight:700;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logo-text p{margin:0;font-size:11px;opacity:.85}
+.top-actions{display:flex;gap:8px;flex:0 0 auto}
+.icon-btn{background:rgba(255,255,255,.18);border:none;color:#fff;width:38px;height:38px;border-radius:12px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.icon-btn:active{background:rgba(255,255,255,.3)}
+.counter-pill{background:rgba(255,255,255,.2);color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.search-wrap{position:relative;margin-bottom:12px}
 .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:#6b7280;pointer-events:none}
 .search-wrap input{width:100%;padding:11px 12px 11px 40px;border-radius:12px;border:none;font-size:16px;outline:none;background:rgba(255,255,255,.97);color:#111}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:0 0 14px;scrollbar-width:none;-ms-overflow-style:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:rgba(255,255,255,.18);color:#fff;border:none;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:background .15s}
+.chip.active{background:#fff;color:var(--accent-2)}
 main{padding:14px;max-width:720px;margin:0 auto;padding-bottom:110px}
 .section-card{background:var(--card);border-radius:16px;padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
@@ -33,23 +41,32 @@ main{padding:14px;max-width:720px;margin:0 auto;padding-bottom:110px}
 .pending-card .section-count{background:rgba(146,64,14,.12);color:var(--pending-text)}
 .pending-card .cat-header{color:var(--pending-text)}
 .btn-share{background:rgba(255,255,255,.85);color:var(--accent-2);border:none;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.btn-share:active{background:#fff}
 .btn-clear{background:transparent;border:1.5px solid var(--danger);color:var(--danger);border-radius:10px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer}
 .category{background:var(--card);border-radius:16px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border)}
 .cat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;background:linear-gradient(180deg,rgba(0,0,0,.02),transparent);border-bottom:1px solid var(--border)}
 .cat-icon{font-size:20px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--accent-soft);border-radius:10px}
 .cat-name{font-size:14px;font-weight:700;letter-spacing:.3px;flex:1;text-transform:uppercase;color:var(--text)}
 .cat-count{font-size:12px;color:var(--muted);font-weight:600}
+.fav-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #fbbf24}
+.fav-card .section-title{color:#92400e}
+.fav-card .cat-icon{background:rgba(255,255,255,.6)}
 .list{list-style:none;margin:0;padding:0}
-.item{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s}
+.item{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s}
 .item:last-child{border-bottom:none}
 .item:active{background:rgba(0,0,0,.03)}
 .item input[type=checkbox]{appearance:none;-webkit-appearance:none;width:26px;height:26px;border:2px solid #cbd5e1;border-radius:8px;flex:0 0 auto;position:relative;cursor:pointer;transition:all .18s;background:var(--card)}
 .item input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent);transform:scale(1.05)}
 .item input[type=checkbox]:checked::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
-.item .name{flex:1;font-size:16px;font-weight:500}
+.item-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.item .name{font-size:16px;font-weight:500;line-height:1.25}
 .item.checked .name{color:var(--muted)}
-.item .delete-btn{background:transparent;border:none;color:var(--danger);font-size:22px;padding:4px 8px;cursor:pointer;line-height:1;opacity:.4;font-weight:400}
+.item .note{font-size:12px;color:var(--muted);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .note-btn{background:transparent;border:none;color:var(--muted);font-size:11px;padding:0;cursor:pointer;text-align:left;font-style:italic;opacity:.6}
+.qty{display:flex;align-items:center;gap:6px;background:var(--accent-soft);border-radius:10px;padding:2px}
+.qty button{background:transparent;border:none;color:var(--accent-2);font-size:18px;font-weight:700;width:26px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:8px;line-height:1}
+.qty button:active{background:rgba(0,0,0,.08)}
+.qty .num{min-width:20px;text-align:center;font-size:14px;font-weight:700;color:var(--accent-2)}
+.item .delete-btn{background:transparent;border:none;color:var(--danger);font-size:22px;padding:4px 6px;cursor:pointer;line-height:1;opacity:.35;font-weight:400;flex:0 0 auto}
 .item .delete-btn:active{opacity:1}
 .empty{color:var(--muted);font-size:14px;padding:12px 4px;text-align:center}
 .fab{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:20px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;font-size:32px;font-weight:300;box-shadow:var(--shadow-lg);cursor:pointer;z-index:30;display:flex;align-items:center;justify-content:center;line-height:1;transition:transform .15s}
@@ -71,27 +88,48 @@ main{padding:14px;max-width:720px;margin:0 auto;padding-bottom:110px}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .hidden{display:none!important}
 .footer-note{text-align:center;color:var(--muted);font-size:12px;margin-top:20px;padding-bottom:10px}
+/* MODO SÚPER */
+body.super-mode .topbar{background:linear-gradient(135deg,#0f172a,#1e293b)}
+body.super-mode main{padding:0;padding-bottom:80px}
+.super-header{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;padding:20px 20px 16px;padding-top:calc(20px + env(safe-area-inset-top,0px));position:sticky;top:0;z-index:5;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.super-title{font-size:22px;font-weight:800;margin:0 0 6px;display:flex;align-items:center;gap:10px}
+.super-sub{font-size:14px;opacity:.75;margin:0}
+.super-bar{height:8px;background:rgba(255,255,255,.15);border-radius:4px;margin-top:14px;overflow:hidden}
+.super-bar-fill{height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:4px;transition:width .3s ease}
+.super-list{list-style:none;margin:0;padding:12px}
+.super-item{background:var(--card);border-radius:16px;padding:22px 20px;margin-bottom:12px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none;box-shadow:var(--shadow);border:1px solid var(--border);transition:transform .1s}
+.super-item:active{transform:scale(.98);background:var(--accent-soft)}
+.super-item .super-check{width:36px;height:36px;border:3px solid #cbd5e1;border-radius:12px;flex:0 0 auto;background:var(--card);position:relative}
+.super-item .super-name{flex:1;font-size:22px;font-weight:700;line-height:1.2}
+.super-item .super-cat{font-size:13px;color:var(--muted);margin-top:2px}
+.super-item .super-qty{background:var(--accent-soft);color:var(--accent-2);font-weight:800;font-size:18px;padding:6px 14px;border-radius:999px}
+.super-empty{color:#fff;text-align:center;padding:60px 20px;font-size:18px;opacity:.85}
+.super-exit{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:rgba(255,255,255,.95);color:#0f172a;border:none;padding:14px 24px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:var(--shadow-lg);cursor:pointer;z-index:10}
 </style>
 </head>
 <body>
-<header class="topbar">
+<header class="topbar" id="topbar">
   <div class="topbar-top">
     <div class="logo">
       <div class="logo-icon">🛒</div>
       <div class="logo-text">
         <h1>La Compra</h1>
-        <p>Lista compartida</p>
+        <p id="header-counter">Vacía</p>
       </div>
     </div>
-    <div class="counter-pill" id="header-counter">0 en la lista</div>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-super" title="Modo súper">⚡</button>
+      <button class="icon-btn" id="btn-add-top" title="Añadir">+</button>
+    </div>
   </div>
   <div class="search-wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     <input id="search" type="search" placeholder="Buscar en el catálogo..." autocomplete="off" />
   </div>
+  <div class="chips" id="chips"></div>
 </header>
 
-<main>
+<main id="main-content">
   <section class="section-card pending-card hidden" id="pending-section">
     <div class="section-head">
       <h2 class="section-title"><span class="icon">🛍️</span> Para comprar <span class="section-count" id="pending-count">0</span></h2>
@@ -100,10 +138,19 @@ main{padding:14px;max-width:720px;margin:0 auto;padding-bottom:110px}
     <div id="pending-content"></div>
   </section>
 
+  <section class="section-card fav-card hidden" id="fav-section">
+    <div class="section-head">
+      <h2 class="section-title"><span class="icon">⭐</span> Más usados</h2>
+    </div>
+    <ul class="list" id="fav-list"></ul>
+  </section>
+
   <div id="catalog"></div>
 
   <p class="footer-note">La Compra · Hecha con cariño</p>
 </main>
+
+<div id="super-view" class="hidden"></div>
 
 <button class="fab" id="fab-add" aria-label="Añadir artículo">+</button>
 
@@ -121,50 +168,72 @@ main{padding:14px;max-width:720px;margin:0 auto;padding-bottom:110px}
   </div>
 </div>
 
+<div class="modal-backdrop" id="note-backdrop">
+  <div class="modal">
+    <h2>Nota</h2>
+    <label for="note-input">Ej: la de marca blanca, sin gluten...</label>
+    <input id="note-input" type="text" placeholder="Escribe una nota" autocomplete="off" />
+    <div class="modal-actions">
+      <button class="btn-cancel" id="note-cancel">Cancelar</button>
+      <button class="btn-primary" id="note-save">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-const CATALOGO_INICIAL={
-"Carne y pescado":["Aceitera","Atún natural","Bacalao","Bacon","Berberechos","Caballa","Carne cocido","Carne guisar","Carne picada","Chipirones","Chorizo","Chorizo cocinar","Cinta de lomo","Costilla","Empanada","Espinazo","Filete ternera","Filetes pollo","Fuet","Gulas","Hamburguesa pollo o pavo","Jamón serrano","Jamón York","Kebap","Lomo","Mejillones","Merluza","Muslos pollo o de pavo","Pavo","Pavo tacos","Pechuga pavo/pollo friso","Pechuga pollo","Pescado","Pollo: alitas","Pulled pork","Puntas jamón","Salchichas frescas","Salmón","Sardinas","Solomillo pavo","Tacos jamón","Ternera"],
-"Lácteos y huevos":["Brick leche pequeño","Colacao","Huevos","Kéfir","Leche","Leche avena","Leche de coco","Leche evaporada","Leche Leo","Leche Nacho","Leche sin lactosa","Mantequilla","Mozzarella","Nata","Nata cocinar","Petit suisse","Quesitos","Queso","Queso azul","Queso ensalada","Queso feta","Queso fresco","Queso fresco de cabra","Queso rallado","Queso sándwich","Queso untar","Yogur","Yogur griego","Yogur sin lactosa"],
-"Fruta y verdura":["Acelgas","Aguacate","Ajos","Alcachofas","Batata","Berenjenas","Boniato","Brócoli","Calabacín","Canónigos","Cebollas","Champiñones","Ciruelas","Ensalada","Espárragos","Espinacas congeladas","Fresas","Frutos secos","Guisantes","Judías pintas","Judías verdes","Kiwis","Limones","Mandarinas","Mango","Manzanas","Melón","Pepinillo","Pepino","Peras","Pimiento rojo","Pimiento verde","Piña","Plátanos","Puerro","Tomate entero pelado","Tomate natural triturado","Tomates","Uvas","Zanahorias"],
-"Despensa":["Aceite de coco","Aceite de oliva","Aceitunas","Arroz","Arroz congelado","Arroz integral","Arroz precocinado","Aspitos","Azúcar","Bicarbonato","Bote garbanzos","Caldo","Campurrianas","Canela molida ceylan","Caramelo","Cebolla frita","Chocolate y churros","Colágeno","Colorante","Copos avena integral","Croissants","Cúrcuma","Fideos","Frutos secos","Galletas","Galletas saladas","Garbanzos","Gazpacho","Gel","Gomina","Guacamole","Gulas","Gusanitos","Harina","Harina espelta integral","Harina integral","Horchata","Humus","Jengibre","Ketchup","Kikos","Latas","Laurel","Lentejas bote","Macarrones","Maíz","Mayonesa","Menestra","Mermelada","Mermelada melocotón","Miel","Migas","Mostaza","Nachos","Nocilla","Ñoquis","Orégano","Palitos cangrejo","Palmeras","Pasta","Pasta dientes","Pasta fideuá","Pasta fresca","Pasta integra","Pasta rellena","Pasta sin gluten","Pastilla avecrem","Patatas fritas","Paté","Perejil","Picos","Pipas","Pizza","Porras","Preparado verdura cocido","Puré","Puré patata","Quinoa","Sal","Sal de frutas","Salsa barbacoa","Salsa cocktail","Salsa rosa","Salsa soja","Salsa yogur","Siropes","Sopa juliana","Tarta","Tofu","Tomate frito","Tortas anís","Tortilla","Vinagre espeso","Vinagre manzana"],
-"Bebidas":["Agua","Cervezas","Cervezas sin","Nestea","Tinto","Vino","Vino blanco","Zumo","Zumos"],
-"Panadería y bollería":["Croissants","Empanada","Masa empanada","Masa pizza","Masa pizza o hojaldre","Pan","Pan 100% integral","Pan bimbo","Pan hamburguesa","Pan sin gluten","Pan tostado","Tortas anís"],
-"Congelados":["Arroz congelado","Ensaladilla congelada","Espinacas congeladas","Helados","Patatas congeladas"],
-"Limpieza":["Amoniaco","Arena gato","Bayetas","Bolsas basura 30L","Bolsas basura 50 L","Bolsas papelera","Detergente ropa","Empapadores","Esponjas","Estropajos","Fairy","Fregasuelos","Fregona","Lejía","Lejía color","Limpiador antigrasa Marsella","Limpiador madera","Limpiador vitro","Limpia baños","Limpia mopa","Limpia olor tejidos","Olor tejidos","Papel aluminio","Papel cocina","Papel de horno","Pastillas lavavajillas","Perborato","Quita grasa","Recambio fregona","Sanitol tejidos","Suavizante ropa","Vinagre limpieza"],
-"Higiene personal":["Aro dental","Bastoncillos","Cepillo dientes","Champú","Champú anti caída","Clínex","Colonia baño","Colutorio","Colutorio Leo","Crema de manos","Crema hidratante almendras/oliva","Crema solar","Cuchilla afeitar","Desodorante","Discos desmaquilladores","Esparadrapo","Flashes","Gasas","Gel","Gomina","Jabón de manos","Limpiador cara","Mascarilla pelo","Pañales","Papel higiénico","Papel regalo","Paraguayas","Pasta dientes","Perfumador","Pilas","Protector solar","Rímel","Salvaslips","Sensodine","Servilletas","Tampax","Tisúes","Toallitas","Velas"],
-"Mascotas":["Arena gato","Champú en seco perras","Dientes perras","Latas gato","Latas Sindy","Pienso gatos","Pienso perras","Pienso Twenty","Rascador gato"],
-"Hogar y varios":["Ambientadores","Jarra batir","Papel regalo","Recambios ambientador Lidl","Sobres olor","Sajonia","Cucharas plástico","Flashes","Pilas","Velas"]
-};
+const CATALOGO_INICIAL={"Carne y pescado":["Aceitera","Atún natural","Bacalao","Bacon","Berberechos","Caballa","Carne cocido","Carne guisar","Carne picada","Chipirones","Chorizo","Chorizo cocinar","Cinta de lomo","Costilla","Empanada","Espinazo","Filete ternera","Filetes pollo","Fuet","Gulas","Hamburguesa pollo o pavo","Jamón serrano","Jamón York","Kebap","Lomo","Mejillones","Merluza","Muslos pollo o de pavo","Pavo","Pavo tacos","Pechuga pavo/pollo friso","Pechuga pollo","Pescado","Pollo: alitas","Pulled pork","Puntas jamón","Salchichas frescas","Salmón","Sardinas","Solomillo pavo","Tacos jamón","Ternera"],"Lácteos y huevos":["Brick leche pequeño","Colacao","Huevos","Kéfir","Leche","Leche avena","Leche de coco","Leche evaporada","Leche Leo","Leche Nacho","Leche sin lactosa","Mantequilla","Mozzarella","Nata","Nata cocinar","Petit suisse","Quesitos","Queso","Queso azul","Queso ensalada","Queso feta","Queso fresco","Queso fresco de cabra","Queso rallado","Queso sándwich","Queso untar","Yogur","Yogur griego","Yogur sin lactosa"],"Fruta y verdura":["Acelgas","Aguacate","Ajos","Alcachofas","Batata","Berenjenas","Boniato","Brócoli","Calabacín","Canónigos","Cebollas","Champiñones","Ciruelas","Ensalada","Espárragos","Espinacas congeladas","Fresas","Frutos secos","Guisantes","Judías pintas","Judías verdes","Kiwis","Limones","Mandarinas","Mango","Manzanas","Melón","Pepinillo","Pepino","Peras","Pimiento rojo","Pimiento verde","Piña","Plátanos","Puerro","Tomate entero pelado","Tomate natural triturado","Tomates","Uvas","Zanahorias"],"Despensa":["Aceite de coco","Aceite de oliva","Aceitunas","Arroz","Arroz congelado","Arroz integral","Arroz precocinado","Aspitos","Azúcar","Bicarbonato","Bote garbanzos","Caldo","Campurrianas","Canela molida ceylan","Caramelo","Cebolla frita","Chocolate y churros","Colágeno","Colorante","Copos avena integral","Croissants","Cúrcuma","Fideos","Frutos secos","Galletas","Galletas saladas","Garbanzos","Gazpacho","Gel","Gomina","Guacamole","Gulas","Gusanitos","Harina","Harina espelta integral","Harina integral","Horchata","Humus","Jengibre","Ketchup","Kikos","Latas","Laurel","Lentejas bote","Macarrones","Maíz","Mayonesa","Menestra","Mermelada","Mermelada melocotón","Miel","Migas","Mostaza","Nachos","Nocilla","Ñoquis","Orégano","Palitos cangrejo","Palmeras","Pasta","Pasta dientes","Pasta fideuá","Pasta fresca","Pasta integra","Pasta rellena","Pasta sin gluten","Pastilla avecrem","Patatas fritas","Paté","Perejil","Picos","Pipas","Pizza","Porras","Preparado verdura cocido","Puré","Puré patata","Quinoa","Sal","Sal de frutas","Salsa barbacoa","Salsa cocktail","Salsa rosa","Salsa soja","Salsa yogur","Siropes","Sopa juliana","Tarta","Tofu","Tomate frito","Tortas anís","Tortilla","Vinagre espeso","Vinagre manzana"],"Bebidas":["Agua","Cervezas","Cervezas sin","Nestea","Tinto","Vino","Vino blanco","Zumo","Zumos"],"Panadería y bollería":["Croissants","Empanada","Masa empanada","Masa pizza","Masa pizza o hojaldre","Pan","Pan 100% integral","Pan bimbo","Pan hamburguesa","Pan sin gluten","Pan tostado","Tortas anís"],"Congelados":["Arroz congelado","Ensaladilla congelada","Espinacas congeladas","Helados","Patatas congeladas"],"Limpieza":["Amoniaco","Arena gato","Bayetas","Bolsas basura 30L","Bolsas basura 50 L","Bolsas papelera","Detergente ropa","Empapadores","Esponjas","Estropajos","Fairy","Fregasuelos","Fregona","Lejía","Lejía color","Limpiador antigrasa Marsella","Limpiador madera","Limpiador vitro","Limpia baños","Limpia mopa","Limpia olor tejidos","Olor tejidos","Papel aluminio","Papel cocina","Papel de horno","Pastillas lavavajillas","Perborato","Quita grasa","Recambio fregona","Sanitol tejidos","Suavizante ropa","Vinagre limpieza"],"Higiene personal":["Aro dental","Bastoncillos","Cepillo dientes","Champú","Champú anti caída","Clínex","Colonia baño","Colutorio","Colutorio Leo","Crema de manos","Crema hidratante almendras/oliva","Crema solar","Cuchilla afeitar","Desodorante","Discos desmaquilladores","Esparadrapo","Flashes","Gasas","Gel","Gomina","Jabón de manos","Limpiador cara","Mascarilla pelo","Pañales","Papel higiénico","Papel regalo","Paraguayas","Pasta dientes","Perfumador","Pilas","Protector solar","Rímel","Salvaslips","Sensodine","Servilletas","Tampax","Tisúes","Toallitas","Velas"],"Mascotas":["Arena gato","Champú en seco perras","Dientes perras","Latas gato","Latas Sindy","Pienso gatos","Pienso perras","Pienso Twenty","Rascador gato"],"Hogar y varios":["Ambientadores","Jarra batir","Papel regalo","Recambios ambientador Lidl","Sobres olor","Sajonia","Cucharas plástico","Flashes","Pilas","Velas"]};
 const CAT_ICONS={"Carne y pescado":"🥩","Lácteos y huevos":"🥛","Fruta y verdura":"🥬","Despensa":"🥫","Bebidas":"🥤","Panadería y bollería":"🍞","Congelados":"🧊","Limpieza":"🧴","Higiene personal":"🧼","Mascotas":"🐾","Hogar y varios":"🏠"};
 const CATEGORIAS=Object.keys(CATALOGO_INICIAL);
 const ORDEN_CAT=new Map(CATEGORIAS.map((c,i)=>[c,i]));
-const STORAGE_KEY="lista_compra_v3";
-let items=[];let filterText="";
+const STORAGE_KEY="lista_compra_v4";
+const STATS_KEY="lista_compra_stats";
+const NOTE_KEY_PREFIX="lista_compra_nota_";
+const FAVS_MIN_USES=2;
+const FAVS_MAX=10;
+let items=[];let filterText="";let activeCat="__all__";let stats={};let superMode=false;
 const $=(s)=>document.querySelector(s);
-function slugId(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function slugId(s){return norm(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
 function loadItems(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return JSON.parse(r)}catch(e){}return null}
 function saveItems(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(items))}catch(e){}}
-function seedIfEmpty(){const l=loadItems();if(l)return l;const s=[];let o=0;const seen=new Set();for(const[cat,nombres]of Object.entries(CATALOGO_INICIAL)){for(const n of nombres){const key=cat+"|"+n.toLowerCase();if(seen.has(key))continue;seen.add(key);s.push({id:slugId(n)+"-"+o,nombre:n,categoria:cat,marcado:false,orden:o++})}}return s}
+function loadStats(){try{const r=localStorage.getItem(STATS_KEY);if(r)return JSON.parse(r)}catch(e){}return{}}
+function saveStats(){try{localStorage.setItem(STATS_KEY,JSON.stringify(stats))}catch(e){}}
+function getNote(id){try{return localStorage.getItem(NOTE_KEY_PREFIX+id)||""}catch(e){return""}}
+function setNote(id,val){try{if(val)localStorage.setItem(NOTE_KEY_PREFIX+id,val);else localStorage.removeItem(NOTE_KEY_PREFIX+id)}catch(e){}}
+function seedIfEmpty(){const l=loadItems();if(l){for(const it of l){if(typeof it.cantidad!=="number")it.cantidad=1}return l}const s=[];let o=0;const seen=new Set();for(const[cat,nombres]of Object.entries(CATALOGO_INICIAL)){for(const n of nombres){const key=cat+"|"+norm(n);if(seen.has(key))continue;seen.add(key);s.push({id:slugId(n)+"-"+o,nombre:n,categoria:cat,marcado:false,cantidad:1,orden:o++})}}return s}
 function catIcon(cat){return CAT_ICONS[cat]||"📦"}
-function render(){renderHeader();renderPending();renderCatalog();renderCategoryOptions()}
+function getFavs(){const arr=Object.entries(stats).map(([id,n])=>({id,n})).filter(x=>x.n>=FAVS_MIN_USES).sort((a,b)=>b.n-a.n).slice(0,FAVS_MAX);return arr.map(x=>items.find(i=>i.id===x.id)).filter(Boolean)}
+function render(){renderHeader();renderChips();renderPending();renderFavs();renderCatalog();renderCategoryOptions()}
 function renderHeader(){const p=items.filter(i=>i.marcado).length;const el=$("#header-counter");el.textContent=p===0?"Vacía":p===1?"1 en la lista":p+" en la lista"}
-function renderPending(){const sec=$("#pending-section");const cont=$("#pending-content");const count=$("#pending-count");const p=items.filter(i=>i.marcado);if(p.length===0){sec.classList.add("hidden");return}sec.classList.remove("hidden");count.textContent=p.length;const groups=new Map();for(const it of p){if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>(ORDEN_CAT.get(a)??999)-(ORDEN_CAT.get(b)??999)||a.localeCompare(b,"es"));cont.innerHTML="";for(const cat of cats){const h=document.createElement("div");h.className="cat-header";h.innerHTML='<div class="cat-icon">'+catIcon(cat)+'</div><div class="cat-name">'+cat+'</div><div class="cat-count">'+groups.get(cat).length+'</div>';cont.appendChild(h);const ul=document.createElement("ul");ul.className="list";groups.get(cat).sort((a,b)=>a.nombre.localeCompare(b.nombre,"es")).forEach(it=>ul.appendChild(renderItem(it,false)));cont.appendChild(ul)}}
-function renderCatalog(){const cont=$("#catalog");cont.innerHTML="";const q=filterText.trim().toLowerCase();const groups=new Map();for(const it of items){if(q&&!it.nombre.toLowerCase().includes(q))continue;if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>(ORDEN_CAT.get(a)??999)-(ORDEN_CAT.get(b)??999)||a.localeCompare(b,"es"));if(cats.length===0){const e=document.createElement("div");e.className="section-card empty";e.textContent=q?'Sin resultados para "'+filterText+'"':"No hay artículos";cont.appendChild(e);return}for(const cat of cats){const card=document.createElement("div");card.className="category";const head=document.createElement("div");head.className="cat-header";const marcados=groups.get(cat).filter(i=>i.marcado).length;head.innerHTML='<div class="cat-icon">'+catIcon(cat)+'</div><div class="cat-name">'+cat+'</div><div class="cat-count">'+marcados+'/'+groups.get(cat).length+'</div>';card.appendChild(head);const ul=document.createElement("ul");ul.className="list";groups.get(cat).sort((a,b)=>(a.orden??0)-(b.orden??0)||a.nombre.localeCompare(b.nombre,"es")).forEach(it=>ul.appendChild(renderItem(it,true)));card.appendChild(ul);cont.appendChild(card)}}
-function renderItem(item,showDelete){const li=document.createElement("li");li.className="item"+(item.marcado?" checked":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!item.marcado;cb.addEventListener("change",()=>toggleItem(item.id,cb.checked));const name=document.createElement("span");name.className="name";name.textContent=item.nombre;name.addEventListener("click",(e)=>{e.preventDefault();cb.checked=!cb.checked;toggleItem(item.id,cb.checked)});li.appendChild(cb);li.appendChild(name);if(showDelete){const del=document.createElement("button");del.className="delete-btn";del.title="Eliminar del catálogo";del.textContent="×";del.addEventListener("click",(e)=>{e.stopPropagation();deleteItem(item.id)});li.appendChild(del)}return li}
+function renderChips(){const cont=$("#chips");cont.innerHTML="";const chipTodo=document.createElement("button");chipTodo.className="chip"+(activeCat==="__all__"?" active":"");chipTodo.innerHTML="🛒 Todo";chipTodo.addEventListener("click",()=>{activeCat="__all__";renderChips();renderCatalog()});cont.appendChild(chipTodo);for(const cat of CATEGORIAS){const c=document.createElement("button");c.className="chip"+(activeCat===cat?" active":"");c.innerHTML=catIcon(cat)+" "+cat;c.addEventListener("click",()=>{activeCat=cat;renderChips();renderCatalog()});cont.appendChild(c)}}
+function renderPending(){const sec=$("#pending-section");const cont=$("#pending-content");const count=$("#pending-count");const p=items.filter(i=>i.marcado);if(p.length===0){sec.classList.add("hidden");return}sec.classList.remove("hidden");count.textContent=p.length;const groups=new Map();for(const it of p){if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>(ORDEN_CAT.get(a)??999)-(ORDEN_CAT.get(b)??999)||a.localeCompare(b,"es"));cont.innerHTML="";for(const cat of cats){const h=document.createElement("div");h.className="cat-header";h.innerHTML='<div class="cat-icon">'+catIcon(cat)+'</div><div class="cat-name">'+cat+'</div><div class="cat-count">'+groups.get(cat).length+'</div>';cont.appendChild(h);const ul=document.createElement("ul");ul.className="list";groups.get(cat).sort((a,b)=>a.nombre.localeCompare(b.nombre,"es")).forEach(it=>ul.appendChild(renderItem(it,false,true)));cont.appendChild(ul)}}
+function renderFavs(){const sec=$("#fav-section");const list=$("#fav-list");const favs=getFavs();if(favs.length===0){sec.classList.add("hidden");return}sec.classList.remove("hidden");list.innerHTML="";favs.forEach(it=>list.appendChild(renderItem(it,false,false)))}
+function renderCatalog(){const cont=$("#catalog");cont.innerHTML="";const q=norm(filterText.trim());const groups=new Map();for(const it of items){if(activeCat!=="__all__"&&it.categoria!==activeCat)continue;if(q&&!norm(it.nombre).includes(q))continue;if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>(ORDEN_CAT.get(a)??999)-(ORDEN_CAT.get(b)??999)||a.localeCompare(b,"es"));if(cats.length===0){const e=document.createElement("div");e.className="section-card empty";e.textContent=q?'Sin resultados para "'+filterText+'"':"No hay artículos";cont.appendChild(e);return}for(const cat of cats){const card=document.createElement("div");card.className="category";const head=document.createElement("div");head.className="cat-header";const marcados=groups.get(cat).filter(i=>i.marcado).length;head.innerHTML='<div class="cat-icon">'+catIcon(cat)+'</div><div class="cat-name">'+cat+'</div><div class="cat-count">'+marcados+'/'+groups.get(cat).length+'</div>';card.appendChild(head);const ul=document.createElement("ul");ul.className="list";const sorted=groups.get(cat).sort((a,b)=>{if(a.marcado!==b.marcado)return a.marcado?-1:1;return(a.orden??0)-(b.orden??0)||a.nombre.localeCompare(b.nombre,"es")});sorted.forEach(it=>ul.appendChild(renderItem(it,true,true)));card.appendChild(ul);cont.appendChild(card)}}
+function renderItem(item,showDelete,showQty){const li=document.createElement("li");li.className="item"+(item.marcado?" checked":"");const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!item.marcado;cb.addEventListener("change",()=>toggleItem(item.id,cb.checked));li.appendChild(cb);const body=document.createElement("div");body.className="item-body";const name=document.createElement("div");name.className="name";name.textContent=item.nombre;name.addEventListener("click",(e)=>{e.preventDefault();cb.checked=!cb.checked;toggleItem(item.id,cb.checked)});body.appendChild(name);const note=getNote(item.id);if(note){const noteEl=document.createElement("div");noteEl.className="note";noteEl.textContent="📝 "+note;noteEl.addEventListener("click",(e)=>{e.stopPropagation();openNoteModal(item.id)});body.appendChild(noteEl)}else if(showQty){const noteBtn=document.createElement("button");noteBtn.className="note-btn";noteBtn.textContent="+ añadir nota";noteBtn.addEventListener("click",(e)=>{e.stopPropagation();openNoteModal(item.id)});body.appendChild(noteBtn)}li.appendChild(body);if(showQty&&item.marcado){const qty=document.createElement("div");qty.className="qty";const minus=document.createElement("button");minus.textContent="−";minus.addEventListener("click",(e)=>{e.stopPropagation();changeQty(item.id,-1)});const num=document.createElement("span");num.className="num";num.textContent=item.cantidad||1;const plus=document.createElement("button");plus.textContent="+";plus.addEventListener("click",(e)=>{e.stopPropagation();changeQty(item.id,1)});qty.appendChild(minus);qty.appendChild(num);qty.appendChild(plus);li.appendChild(qty)}if(showDelete){const del=document.createElement("button");del.className="delete-btn";del.title="Eliminar del catálogo";del.textContent="×";del.addEventListener("click",(e)=>{e.stopPropagation();deleteItem(item.id)});li.appendChild(del)}return li}
 function renderCategoryOptions(){const sel=$("#new-category");sel.innerHTML="";for(const cat of CATEGORIAS){const o=document.createElement("option");o.value=cat;o.textContent=catIcon(cat)+" "+cat;sel.appendChild(o)}const otra=document.createElement("option");otra.value="__nueva__";otra.textContent="➕ Nueva categoría...";sel.appendChild(otra)}
-function toggleItem(id,marcado){const it=items.find(x=>x.id===id);if(!it)return;it.marcado=marcado;saveItems();render()}
-function deleteItem(id){const it=items.find(x=>x.id===id);if(!it)return;if(!confirm('¿Eliminar "'+it.nombre+'" del catálogo?'))return;items=items.filter(x=>x.id!==id);saveItems();render();toast("Eliminado")}
-function addNewItem(nombre,categoria){const id=slugId(nombre)+"-"+Math.random().toString(36).slice(2,6);const orden=10000+Date.now()%100000;items.push({id,nombre:nombre.trim(),categoria:categoria.trim(),marcado:true,orden});saveItems();render()}
-function clearPending(){const p=items.filter(i=>i.marcado);if(!p.length)return;if(!confirm("¿Vaciar la lista? Se desmarcarán "+p.length+" artículo(s)."))return;items.forEach(i=>i.marcado=false);saveItems();render();toast("Lista vaciada ✓")}
-function shareList(){const p=items.filter(i=>i.marcado);if(!p.length){toast("La lista está vacía");return}const groups=new Map();for(const it of p){if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>(ORDEN_CAT.get(a)??999)-(ORDEN_CAT.get(b)??999));let txt="🛒 *La Compra*\n\n";for(const cat of cats){txt+=catIcon(cat)+" *"+cat+"*\n";groups.get(cat).sort((a,b)=>a.nombre.localeCompare(b.nombre,"es")).forEach(it=>{txt+="• "+it.nombre+"\n"});txt+="\n"}txt+="_"+p.length+" artículo"+(p.length===1?"":"s")+"_";if(navigator.share){navigator.share({text:txt}).catch(()=>{})}else{navigator.clipboard.writeText(txt).then(()=>toast("Copiado al portapapeles ✓")).catch(()=>{prompt("Copia la lista:",txt)})}}
+function toggleItem(id,marcado){const it=items.find(x=>x.id===id);if(!it)return;it.marcado=marcado;if(marcado){it.cantidad=it.cantidad||1;stats[id]=(stats[id]||0)+1;saveStats()}else{it.cantidad=1}saveItems();render()}
+function changeQty(id,d){const it=items.find(x=>x.id===id);if(!it)return;it.cantidad=Math.max(1,(it.cantidad||1)+d);saveItems();render()}
+function deleteItem(id){const it=items.find(x=>x.id===id);if(!it)return;if(!confirm('¿Eliminar "'+it.nombre+'" del catálogo?'))return;items=items.filter(x=>x.id!==id);setNote(id,"");saveItems();render();toast("Eliminado")}
+function addNewItem(nombre,categoria){const id=slugId(nombre)+"-"+Math.random().toString(36).slice(2,6);const orden=10000+Date.now()%100000;items.push({id,nombre:nombre.trim(),categoria:categoria.trim(),marcado:true,cantidad:1,orden});saveItems();render()}
+function clearPending(){const p=items.filter(i=>i.marcado);if(!p.length)return;if(!confirm("¿Vaciar la lista? Se desmarcarán "+p.length+" artículo(s)."))return;items.forEach(i=>{i.marcado=false;i.cantidad=1});saveItems();render();toast("Lista vaciada ✓")}
+function shareList(){const p=items.filter(i=>i.marcado);if(!p.length){toast("La lista está vacía");return}const groups=new Map();for(const it of p){if(!groups.has(it.categoria))groups.set(it.categoria,[]);groups.get(it.categoria).push(it)}const cats=[...groups.keys()].sort((a,b)=>(ORDEN_CAT.get(a)??999)-(ORDEN_CAT.get(b)??999));let txt="🛒 *La Compra*\n\n";for(const cat of cats){txt+=catIcon(cat)+" *"+cat+"*\n";groups.get(cat).sort((a,b)=>a.nombre.localeCompare(b.nombre,"es")).forEach(it=>{const c=it.cantidad>1?" x"+it.cantidad:"";const n=getNote(it.id);txt+="• "+it.nombre+c+(n?" _("+n+")":"")+"\n"});txt+="\n"}txt+="_"+p.length+" artículo"+(p.length===1?"":"s")+"_";if(navigator.share){navigator.share({text:txt}).catch(()=>{})}else{navigator.clipboard.writeText(txt).then(()=>toast("Copiado ✓")).catch(()=>{prompt("Copia la lista:",txt)})}}
 function openModal(){$("#modal-backdrop").classList.add("show");setTimeout(()=>$("#new-name").focus(),100)}
 function closeModal(){$("#modal-backdrop").classList.remove("show");$("#new-name").value=""}
 function saveFromModal(){const nombre=$("#new-name").value.trim();let categoria=$("#new-category").value;if(!nombre){toast("Escribe un nombre");return}if(categoria==="__nueva__"){const n=prompt("Nombre de la nueva categoría:");if(!n||!n.trim())return;categoria=n.trim()}addNewItem(nombre,categoria);closeModal();toast("Añadido ✓")}
-function setupUI(){$("#search").addEventListener("input",(e)=>{filterText=e.target.value;renderCatalog()});$("#clear-pending").addEventListener("click",clearPending);$("#fab-add").addEventListener("click",openModal);$("#modal-cancel").addEventListener("click",closeModal);$("#modal-save").addEventListener("click",saveFromModal);$("#modal-backdrop").addEventListener("click",(e)=>{if(e.target.id==="modal-backdrop")closeModal()});$("#new-name").addEventListener("keydown",(e)=>{if(e.key==="Enter")saveFromModal()});const shareBtn=document.createElement("button");shareBtn.className="btn-share";shareBtn.innerHTML="📤 Compartir";shareBtn.addEventListener("click",shareList);$("#pending-section").querySelector(".section-head").appendChild(shareBtn)}
+let noteItemId=null;
+function openNoteModal(id){noteItemId=id;$("#note-input").value=getNote(id);$("#note-backdrop").classList.add("show");setTimeout(()=>$("#note-input").focus(),100)}
+function closeNoteModal(){$("#note-backdrop").classList.remove("show");noteItemId=null}
+function saveNote(){if(!noteItemId)return;setNote(noteItemId,$("#note-input").value.trim());closeNoteModal();render();toast("Nota guardada ✓")}
+/* MODO SÚPER */
+function enterSuper(){const p=items.filter(i=>i.marcado);if(p.length===0){toast("Marca algún artículo primero");return}superMode=true;document.body.classList.add("super-mode");$("#topbar").classList.add("hidden");$("#main-content").classList.add("hidden");$("#fab-add").classList.add("hidden");$("#super-view").classList.remove("hidden");renderSuper()}
+function exitSuper(){superMode=false;document.body.classList.remove("super-mode");$("#topbar").classList.remove("hidden");$("#main-content").classList.remove("hidden");$("#fab-add").classList.remove("hidden");$("#super-view").classList.add("hidden");render()}
+function renderSuper(){const cont=$("#super-view");const p=items.filter(i=>i.marcado);const total=items.filter(i=>i.marcado||i._superTotal).length;cont.innerHTML="";const header=document.createElement("div");header.className="super-header";const comprados=superComprados;const pct=p.length===0?100:Math.round((comprados/(comprados+p.length))*100);header.innerHTML='<h1 class="super-title">⚡ Modo súper</h1><p class="super-sub">'+(p.length===0?"¡Todo comprado! 🎉":p.length+" artículo"+(p.length===1?"":"s")+" pendiente"+(p.length===1?"":"s"))+'</p><div class="super-bar"><div class="super-bar-fill" style="width:'+pct+'%"></div></div>';cont.appendChild(header);if(p.length===0){const e=document.createElement("div");e.className="super-empty";e.innerHTML="🎉<br>¡Lista completada!";cont.appendChild(e)}else{const ul=document.createElement("ul");ul.className="super-list";p.sort((a,b)=>(ORDEN_CAT.get(a.categoria)??999)-(ORDEN_CAT.get(b.categoria)??999)||a.nombre.localeCompare(b.nombre,"es")).forEach(it=>{const li=document.createElement("li");li.className="super-item";li.innerHTML='<div class="super-check"></div><div style="flex:1"><div class="super-name">'+it.nombre+'</div><div class="super-cat">'+catIcon(it.categoria)+" "+it.categoria+'</div></div>'+(it.cantidad>1?'<div class="super-qty">x'+it.cantidad+'</div>':"");li.addEventListener("click",()=>{toggleItem(it.id,false);superComprados++;renderSuper()});ul.appendChild(li)});cont.appendChild(ul)}const exit=document.createElement("button");exit.className="super-exit";exit.textContent="Salir del modo súper";exit.addEventListener("click",exitSuper);cont.appendChild(exit)}
+let superComprados=0;
+function setupUI(){$("#search").addEventListener("input",(e)=>{filterText=e.target.value;renderCatalog()});$("#clear-pending").addEventListener("click",clearPending);$("#fab-add").addEventListener("click",openModal);$("#btn-add-top").addEventListener("click",openModal);$("#btn-super").addEventListener("click",()=>{superComprados=0;enterSuper()});$("#modal-cancel").addEventListener("click",closeModal);$("#modal-save").addEventListener("click",saveFromModal);$("#modal-backdrop").addEventListener("click",(e)=>{if(e.target.id==="modal-backdrop")closeModal()});$("#new-name").addEventListener("keydown",(e)=>{if(e.key==="Enter")saveFromModal()});$("#note-cancel").addEventListener("click",closeNoteModal);$("#note-save").addEventListener("click",saveNote);$("#note-backdrop").addEventListener("click",(e)=>{if(e.target.id==="note-backdrop")closeNoteModal()});$("#note-input").addEventListener("keydown",(e)=>{if(e.key==="Enter")saveNote()});const shareBtn=document.createElement("button");shareBtn.className="btn-share";shareBtn.innerHTML="📤 Compartir";shareBtn.addEventListener("click",shareList);$("#pending-section").querySelector(".section-head").appendChild(shareBtn)}
 let toastTimer;function toast(msg){const el=$("#toast");el.textContent=msg;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),1800)}
-(function init(){setupUI();items=seedIfEmpty();saveItems();render()})();
+(function init(){setupUI();stats=loadStats();items=seedIfEmpty();saveItems();render()})();
 </script>
 </body>
 </html>
